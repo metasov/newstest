@@ -39,6 +39,7 @@ def feed(request, page_num=None):
 	except EmptyPage:
 		page = p.page(p.num_pages)
 
-	result = "<br/>\n".join([ "%(title)s(%(description)s)" % _ for _ in page.object_list])
+	result = [ "%s(%s)" % (_.title, _.description) for _ in page.object_list]
+	result = "<br/>\n".join(result)
 
 	return HttpResponse(result)
