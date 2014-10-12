@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+</head>
+<body>
+<div id="enter">
+        <div id="add_form">
+                <form method="POST">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <input type="submit" value="Go!" />
+                </form>
+        </div>
+</div>
+</body>
+</html>
