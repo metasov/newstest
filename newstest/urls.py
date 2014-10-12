@@ -8,6 +8,7 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
     url(r'^login/$', news.login),
     url(r'^logout/$', news.logout),
+    url(r'^(?P<page_num>\d+)/$', news.feed),
     url(r'^$', news.feed),
     url(r'^admin/', include(admin.site.urls)),
 )
