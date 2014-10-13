@@ -1,0 +1,21 @@
+{% if page.has_previous %}        
+    <li><a href="{% url "feed" page_num=page.previous_page_number %}" data-trigger="load_page" data-load-page-num="{{ page.previous_page_number }}">&laquo;</a></li>
+{% else %}
+    <li class="disabled"><a>&laquo;</a></li>
+{% endif %}
+{% for p in pages_range %}
+    {% ifequal p page.number %}
+        <li class="active"><a>{{ p }}</a></li>
+    {% else %}
+        <li><a href="{% url "feed" page_num=p %}" data-trigger="load_page" data-load-page-num="{{ p }}">{{ p }}</a></li>
+    {% endifequal %}
+{% endfor %}
+{% if page.has_next %}        
+    <li><a href="{% url "feed" page_num=page.next_page_number %}" data-trigger="load_page" data-load-page-num="{{ page.next_page_number }}">&raquo;</a></li>
+{% else %}
+    <li class="disabled"><a>&raquo;</a></li>
+{% endif %}
+
+<script type="text/javascript">
+    window.page_num = {{ page.number }};
+</script>

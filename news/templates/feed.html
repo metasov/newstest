@@ -2,33 +2,12 @@
 {% block content %}
 <ul class="media-list">
     {% for news in page %}
-        <li class="media">
-            <div class="media-body">
-                <h4 class="media-heading"><a href="{% url "news_page" news_id=news.id %}?back={% url "feed" page_num=page.number %}">{{ news.title }}</a></h4>
-                {{ news.description }}
-                <a title="Delete from news feed" class="delete" href="/remove/{{ news.id }}/?next={% url "feed" page_num=page.number %}"><span class="glyphicon glyphicon-remove"></span></a>
-            </div>
-        </li>
+        {% include "news_li.html" %}
     {% endfor %}
 </ul>
 
 <ul class="pagination">
-    {% if page.has_previous %}        
-        <li><a href="{% url "feed" page_num=page.previous_page_number %}">&laquo;</a></li>
-    {% else %}
-        <li class="disabled"><a>&laquo;</a></li>
-    {% endif %}
-    {% for p in pages_range %}
-        {% ifequal p page.number %}
-            <li class="active"><a>{{ p }}</a></li>
-        {% else %}
-            <li><a href="{% url "feed" page_num=p %}">{{ p }}</a></li>
-        {% endifequal %}
-    {% endfor %}
-    {% if page.has_next %}        
-        <li><a href="{% url "feed" page_num=page.next_page_number %}">&raquo;</a></li>
-    {% else %}
-        <li class="disabled"><a>&raquo;</a></li>
-    {% endif %}
+ {% include "pagination.html" %}
 </ul>
+
 {% endblock %}
