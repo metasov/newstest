@@ -27,8 +27,8 @@
       <a class="navbar-brand" href="/">News</a>
     </div>
 	<div class="collapse navbar-collapse" id="bs-navbar-collapse">
-    	<p class="navbar-text">Welcome, {{ user.email }}</p>
 		{% if user.is_authenticated %}
+    	<p class="navbar-text">Welcome, {{ user.username }}</p>
 	    <ul class="nav navbar-nav navbar-right">
 	    	<li><a href="/logout/">Logout</a></li>
 	    </ul>
