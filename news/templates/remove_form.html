@@ -1,0 +1,18 @@
+{% extends "main.html" %}
+{% block content %}
+<div class="jumbotron">
+    <h1>Delete news from feed</h1>
+    <div class="media">
+        <div class="media-body">
+            <h4 class="media-heading"><a href="#">{{ news.title }}</a></h4>
+            {{ news.description }}
+        </div>
+    </div>
+    <p>Are you shure to delete this news?</p>
+    <form method="POST">
+        {% csrf_token %}
+        <input type="submit" class="btn btn-default" value="Yes" />
+        <input type="submit" class="btn btn-cancel" value="No" />
+    </form>
+</div>  
+{% endblock %}

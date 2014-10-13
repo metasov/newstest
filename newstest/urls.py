@@ -10,5 +10,6 @@ urlpatterns = patterns('',
     url(r'^logout/$', news.logout),
     url(r'^(?P<page_num>\d+)/$', news.feed, name="feed"),
     url(r'^$', news.feed, name="feed"),
+    url(r'^remove/(?P<news_id>\d+)', news.remove, name="remove"),
     url(r'^admin/', include(admin.site.urls)),
 )

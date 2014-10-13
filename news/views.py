@@ -1,4 +1,4 @@
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, get_object_or_404
 from django.template import loader, RequestContext
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login as auth_login, \
@@ -51,3 +51,20 @@ def feed(request, page_num=None):
 		"pages_range": pages_range
 	}))
 
+@login_required
+def remove(request, news_id):
+	news = get_object_or_404(News, id=news_id)
+	next = request.GET.get("next", "/")
+	if not request.method == "POST":
+		return render_to_response("remove_form.html", RequestContext(request, {
+			"news": news,
+			"next": next
+		}))
+	if request.POST.get("submit", "No") != "Yes":
+		return HttpResponseRedirect(next)
+	try:
+		dn = DeletedNews.objects.get(user = request.user,
+									 news = news)
+	except DeletedNews.DoesNotExist:
+		DeletedNews(user = request.user, news = news).save()
+	return HttpResponseRedirect(next)

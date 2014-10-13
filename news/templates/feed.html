@@ -6,7 +6,7 @@
             <div class="media-body">
                 <h4 class="media-heading"><a href="#">{{ news.title }}</a></h4>
                 {{ news.description }}
-                <a title="Delete from news feed" class="delete" href="#"><span class="glyphicon glyphicon-remove"></span></a>
+                <a title="Delete from news feed" class="delete" href="/remove/{{ news.id }}/?next={% url "feed" page_num=page.number %}"><span class="glyphicon glyphicon-remove"></span></a>
             </div>
         </li>
     {% endfor %}
