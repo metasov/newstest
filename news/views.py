@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import loader, RequestContext
 from django.contrib.auth.decorators import login_required
