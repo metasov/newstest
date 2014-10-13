@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 from django.db import models
 from datetime import datetime, date
-from django.contrib.auth.models import User
+from django.conf import settings
 
 # Create your models here.
 class News(models.Model):
@@ -19,7 +19,7 @@ class News(models.Model):
 		return self.title
 
 class DeletedNews(models.Model):
-	user = models.ForeignKey(User, related_name="deleted_news")
+	user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="deleted_news")
 	news = models.ForeignKey(News, related_name="users_deleted")
 	class Meta:
 		verbose_name = "Deleted News"
