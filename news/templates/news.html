@@ -1,10 +1,12 @@
 {% extends "main.html" %}
 {% block content %}
-        <div class="media">
-            <div class="media-body">
-                <h4 class="media-heading"><a href="#">{{ news.title }}</a></h4>
-                {{ news.description }}
-            </div>
-        </div>
-        <a href="{{ back }}" class="btn btn-default">Go back.</a>
+<div class="row">
+	<div class="col-md-8 col-md-offset-2">
+        <h4 class="media-heading">{{ news.title }}</h4>
+        <p>{{ news.description }}</p>
+        <p>Creation date: {{ news.creation_date }}</p>
+        <p>Publication date: {{ news.publication_date }}</p>
+        <p><a href="{{ back }}" class="btn btn-default">Go back.</a></p>
+    </div>
+</div>
 {% endblock %}
