@@ -1,0 +1,10 @@
+{% extends "main.html" %}
+{% block content %}
+        <div class="media">
+            <div class="media-body">
+                <h4 class="media-heading"><a href="#">{{ news.title }}</a></h4>
+                {{ news.description }}
+            </div>
+        </div>
+        <a href="{{ back }}" class="btn btn-default">Go back.</a>
+{% endblock %}
