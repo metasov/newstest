@@ -4,10 +4,11 @@
         <center>
             <h1>Welcome to News</h1>
             <h3>Please authorize or <a href="/register/">create new account</a>.</h3>
+            <br />
                 <form method="POST">
                         {% csrf_token %}
                         {{ form.as_p }}
-                        <input type="submit" value="Go!" />
+                        <input type="submit" value="Go!" class="btn btn-default" />
                 </form>
         </center>
 </div>
