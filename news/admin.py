@@ -27,7 +27,11 @@ class NewsUserAdmin(UserAdmin):
 	ordering = ('email',)
 	filter_horizontal = ('groups', 'user_permissions',)
 
+class NewsAdmin(admin.ModelAdmin):
+	list_display = ('title', 'creation_date', 'publication_date')
+	search_fields = ('title', )
+
 # Register your models here.
-admin.site.register(News)
+admin.site.register(News, NewsAdmin)
 admin.site.register(DeletedNews)
 admin.site.register(User, NewsUserAdmin)
