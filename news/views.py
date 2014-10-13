@@ -10,6 +10,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.conf import settings
 
 PAGE_NEWS_COUNT = 5
+ADJ_PAGES = 2
 
 def login(request):
 	form = AuthenticationForm(request = request,
@@ -33,7 +34,7 @@ def logout(request):
 # Create your views here.
 @login_required
 def feed(request, page_num=None):
-	page_num = page_num or 1
+	page_num = page_num and int(page_num) or 1
 	news = News.objects.all()
 	p = Paginator(news, PAGE_NEWS_COUNT)
 	try:
@@ -41,7 +42,12 @@ def feed(request, page_num=None):
 	except EmptyPage:
 		page = p.page(p.num_pages)
 
-	result = [ "%s(%s)" % (_.title, _.description) for _ in page.object_list]
-	result = "<br/>\n".join(result)
+	min_page = max(1, page_num - ADJ_PAGES)
+	max_page = min(p.num_pages, page_num + ADJ_PAGES)
+	pages_range = range(min_page, max_page + 1)
 
-	return HttpResponse(result)
+	return render_to_response("feed.html", RequestContext(request, {
+		"page": page,
+		"pages_range": pages_range
+	}))
+
