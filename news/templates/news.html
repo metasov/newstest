@@ -4,9 +4,8 @@
 	<div class="col-md-8 col-md-offset-2">
         <h4 class="media-heading">{{ news.title }}</h4>
         <p>{{ news.description }}</p>
-        <p>Creation date: {{ news.creation_date }}</p>
-        <p>Publication date: {{ news.publication_date }}</p>
-        <p><a href="{{ back }}" class="btn btn-default">Go back.</a></p>
+        <p><small>Publication date: {{ news.publication_date }}</small></p>
+        <p><a href="{{ back }}" class="btn btn-default"> <span class="glyphicon glyphicon-arrow-left"></span> Go back</a></p>
     </div>
 </div>
 {% endblock %}
