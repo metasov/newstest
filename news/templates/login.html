@@ -1,15 +1,20 @@
 {% extends "main.html" %}
+{% load bootstrap3 %}
 {% block content %}
 <div class="jumbotron">
         <center>
             <h1>Welcome to News</h1>
-            <h3>Please authorize or <a href="/register/">create new account</a>.</h3>
+            <h2>Please authorize:</h3>
             <br />
-                <form method="POST">
-                        {% csrf_token %}
-                        {{ form.as_p }}
-                        <input type="submit" value="Go!" class="btn btn-default" />
-                </form>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <form method="POST" role="form">
+                            {% csrf_token %}
+                            {% bootstrap_form form %}
+                            <input type="submit" value="Go!" class="btn btn-default" />
+                    </form>                
+                </div>
+            </div>
         </center>
 </div>
 {% endblock %}
