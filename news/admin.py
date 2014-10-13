@@ -9,7 +9,7 @@ class NewsUserAdmin(UserAdmin):
 	fieldsets = (
 		(None, {'fields': ('username', 'email', 'password')}),
 		(_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser',
-									   'groups', 'user_permissions')}),
+									   'user_permissions')}),
 		(_('Important dates'), {'fields': ('last_login', 'date_joined')}),
 	)
 	add_fieldsets = (
@@ -25,7 +25,7 @@ class NewsUserAdmin(UserAdmin):
 	list_filter = ('is_staff', 'is_superuser', 'is_active', 'groups')
 	search_fields = ('username', 'email')
 	ordering = ('email',)
-	filter_horizontal = ('groups', 'user_permissions',)
+	filter_horizontal = ('user_permissions',)
 
 class NewsAdmin(admin.ModelAdmin):
 	list_display = ('title', 'creation_date', 'publication_date')
@@ -35,3 +35,7 @@ class NewsAdmin(admin.ModelAdmin):
 admin.site.register(News, NewsAdmin)
 admin.site.register(DeletedNews)
 admin.site.register(User, NewsUserAdmin)
+
+from django.contrib.auth.models import Group
+
+admin.site.unregister(Group)
