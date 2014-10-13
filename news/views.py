@@ -9,6 +9,7 @@ from news.models import News, DeletedNews, User
 from django.core.paginator import Paginator, EmptyPage
 from django.http import HttpResponse, HttpResponseRedirect
 from django.conf import settings
+from simplejson import dumps
 
 PAGE_NEWS_COUNT = 5
 ADJ_PAGES = 2
@@ -48,10 +49,29 @@ def feed(request, page_num=None):
 	max_page = min(p.num_pages, page_num + ADJ_PAGES)
 	pages_range = range(min_page, max_page + 1)
 
-	return render_to_response("feed.html", RequestContext(request, {
-		"page": page,
-		"pages_range": pages_range
-	}))
+	if request.is_ajax():
+		response = {
+			"news": [],
+			"pagination": ""
+		}
+		tmpl = loader.get_template("news_li.html")
+		cntx = RequestContext(request, {
+			"page": page,
+			"pages_range": pages_range,
+			"news": None,
+		})
+		for news in page.object_list:
+			cntx["news"] = news
+			response["news"].append(tmpl.render(cntx))
+		tmpl = loader.get_template("pagination.html")
+		response["pagination"] = tmpl.render(cntx)
+		return HttpResponse(dumps(response), content_type="application/json")
+	else:
+		return render_to_response("feed.html", RequestContext(request, {
+			"page": page,
+			"pages_range": pages_range
+		}))
+
 
 @login_required
 def news_page(request, news_id):
@@ -66,16 +86,22 @@ def news_page(request, news_id):
 def remove(request, news_id):
 	news = get_object_or_404(News, id=news_id)
 	next = request.GET.get("next", "/")
-	if not request.method == "POST":
-		return render_to_response("remove_form.html", RequestContext(request, {
-			"news": news,
-			"next": next
-		}))
-	if request.POST.get("submit", "No") != "Yes":
-		return HttpResponseRedirect(next)
+	if not request.is_ajax():
+		if not request.method == "POST":
+			return render_to_response("remove_form.html", RequestContext(request, {
+				"news": news,
+				"next": next
+			}))
+
+		if request.POST.get("submit", "No") != "Yes":
+			return HttpResponseRedirect(next)
 	try:
 		dn = DeletedNews.objects.get(user = request.user,
 									 news = news)
 	except DeletedNews.DoesNotExist:
 		DeletedNews(user = request.user, news = news).save()
-	return HttpResponseRedirect(next)
+	if not request.is_ajax():
+		return HttpResponseRedirect(next)
+	else:
+		return HttpResponse(dumps({'success': True}))
+		
