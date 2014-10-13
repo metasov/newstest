@@ -17,7 +17,7 @@ def login(request):
 	next = request.GET.get("next", "/")
 	if request.user.is_authenticated():
 		return HttpResponseRedirect(next)
-	if form.is_valid():
+	if form.is_valid():	
 		user = form.get_user()
 		auth_login(request, user)
 		return HttpResponseRedirect(next)
