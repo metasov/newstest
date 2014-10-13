@@ -11,5 +11,6 @@ urlpatterns = patterns('',
     url(r'^(?P<page_num>\d+)/$', news.feed, name="feed"),
     url(r'^$', news.feed, name="feed"),
     url(r'^remove/(?P<news_id>\d+)', news.remove, name="remove"),
+    url(r'^news/(?P<news_id>\d+)', news.news_page, name="news_page"),
     url(r'^admin/', include(admin.site.urls)),
 )

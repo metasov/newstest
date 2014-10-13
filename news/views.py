@@ -54,6 +54,15 @@ def feed(request, page_num=None):
 	}))
 
 @login_required
+def news_page(request, news_id):
+	news = get_object_or_404(News, id=news_id)
+	back = request.GET.get("back", "/")
+	return render_to_response("news.html", RequestContext(request, {
+		"news": news,
+		"back": back
+	}))
+
+@login_required
 def remove(request, news_id):
 	news = get_object_or_404(News, id=news_id)
 	next = request.GET.get("next", "/")
