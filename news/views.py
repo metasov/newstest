@@ -37,7 +37,7 @@ def logout(request):
 def feed(request, page_num=None):
 	page_num = page_num and int(page_num) or 1
 	news = News.objects.all()
-	news = news.exclude(users_deleted=request.user)
+	news = news.exclude(users_deleted__user=request.user)
 	p = Paginator(news, PAGE_NEWS_COUNT)
 	try:
 		page = p.page(page_num)
