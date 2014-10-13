@@ -1,0 +1,9 @@
+Django==1.7
+MySQL-python==1.2.5
+distribute==0.6.19
+django-bootstrap3==4.11.0
+## FIXME: could not find svn URL in dependency_links for this package:
+flup==1.0.3.dev-20110405
+ipython==2.3.0
+simplejson==3.6.4
+wsgiref==0.1.2
