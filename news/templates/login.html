@@ -1,17 +1,14 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Login</title>
-</head>
-<body>
-<div id="enter">
-        <div id="add_form">
+{% extends "main.html" %}
+{% block content %}
+<div class="jumbotron">
+        <center>
+            <h1>Welcome to News</h1>
+            <h3>Please authorize or <a href="/register/">create new account</a>.</h3>
                 <form method="POST">
                         {% csrf_token %}
                         {{ form.as_p }}
                         <input type="submit" value="Go!" />
                 </form>
-        </div>
+        </center>
 </div>
-</body>
-</html>
+{% endblock %}
